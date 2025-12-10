@@ -16,10 +16,13 @@
         "luan-tavares/data-transfer-object": "^2.0",
         "luan-tavares/global-vars": "^1.0",
         "luan-tavares/hubspot": "^3.0",
-        "luan-tavares/mapping": "^1.0"
+        "luan-tavares/mapping": "^1.0",
+        "bref/laravel-bridge": "^2.4",
+        "inertiajs/inertia-laravel": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "luan-tavares/simple-deploy": "^1.0",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
