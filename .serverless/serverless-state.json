@@ -14,16 +14,16 @@
         "cors": true
       },
       "environment": {
-        "APP_URL": "https://ops.tropicalsolutions.com",
+        "APP_URL": "https://th-ops.tropicalsolutions.com",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "array",
         "CACHE_DRIVER": "array",
         "AWS_LAMBDA": "true",
         "APP_DEBUG": "true",
         "QUEUE_CONNECTION": "sqs",
-        "DB_HOST": "caloi-db.tropicalhub",
         "DB_PORT": "3306",
         "ASSET_URL": null,
+        "DB_HOST": null,
         "AWS_ACCESS_KEY_ID": null,
         "AWS_SECRET_ACCESS_KEY": null
       },
@@ -137,6 +137,12 @@
               "LogGroupName": "/aws/lambda/x-th-prod-webWebhook"
             }
           },
+          "WorkerUploadGoogleDriveLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/x-th-prod-workerUploadGoogleDrive"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -197,6 +203,17 @@
                       },
                       {
                         "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sqs:ReceiveMessage",
+                          "sqs:DeleteMessage",
+                          "sqs:GetQueueAttributes"
+                        ],
+                        "Resource": [
+                          "arn:aws:sqs:sa-east-1:196191449462:th-readme-create-transcript"
+                        ]
                       }
                     ]
                   }
@@ -239,7 +256,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/x-th/prod/1765378504864-2025-12-10T14:55:04.864Z/x-th.zip"
+                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
@@ -248,14 +265,13 @@
               "Timeout": 20,
               "Environment": {
                 "Variables": {
-                  "APP_URL": "https://ops.tropicalsolutions.com",
+                  "APP_URL": "https://th-ops.tropicalsolutions.com",
                   "LOG_CHANNEL": "stderr",
                   "SESSION_DRIVER": "array",
                   "CACHE_DRIVER": "array",
                   "AWS_LAMBDA": "true",
                   "APP_DEBUG": "true",
                   "QUEUE_CONNECTION": "sqs",
-                  "DB_HOST": "caloi-db.tropicalhub",
                   "DB_PORT": "3306"
                 }
               },
@@ -288,23 +304,22 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/x-th/prod/1765378504864-2025-12-10T14:55:04.864Z/x-th.zip"
+                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
               "FunctionName": "x-th-prod-webWebhook",
               "MemorySize": 1024,
-              "Timeout": 20,
+              "Timeout": 40,
               "Environment": {
                 "Variables": {
-                  "APP_URL": "https://ops.tropicalsolutions.com",
+                  "APP_URL": "https://th-ops.tropicalsolutions.com",
                   "LOG_CHANNEL": "stderr",
                   "SESSION_DRIVER": "array",
                   "CACHE_DRIVER": "array",
                   "AWS_LAMBDA": "true",
                   "APP_DEBUG": "true",
                   "QUEUE_CONNECTION": "sqs",
-                  "DB_HOST": "caloi-db.tropicalhub",
                   "DB_PORT": "3306"
                 }
               },
@@ -330,24 +345,99 @@
               "WebWebhookLogGroup"
             ]
           },
-          "WebNormalLambdaVersionZEZ7vzK7Hi8rdDrKnm4xzZDHXlCLbkx9WnMDMJxsuFg": {
+          "WorkerUploadGoogleDriveLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
+              },
+              "Handler": "worker.php",
+              "Runtime": "provided.al2",
+              "FunctionName": "x-th-prod-workerUploadGoogleDrive",
+              "MemorySize": 1024,
+              "Timeout": 60,
+              "Environment": {
+                "Variables": {
+                  "APP_URL": "https://th-ops.tropicalsolutions.com",
+                  "LOG_CHANNEL": "stderr",
+                  "SESSION_DRIVER": "array",
+                  "CACHE_DRIVER": "array",
+                  "AWS_LAMBDA": "true",
+                  "APP_DEBUG": "true",
+                  "QUEUE_CONNECTION": "sqs",
+                  "DB_PORT": "3306"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "VpcConfig": {
+                "SecurityGroupIds": {
+                  "$ref": "$[\"service\"][\"provider\"][\"vpc\"][\"securityGroupIds\"]"
+                },
+                "SubnetIds": {
+                  "$ref": "$[\"service\"][\"provider\"][\"vpc\"][\"subnetIds\"]"
+                }
+              },
+              "Layers": [
+                "arn:aws:lambda:sa-east-1:534081306603:layer:php-84:35"
+              ]
+            },
+            "DependsOn": [
+              "WorkerUploadGoogleDriveLogGroup"
+            ]
+          },
+          "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebNormalLambdaFunction"
               },
-              "CodeSha256": "JMCrxgfOoYcHgvR0mb9Qy3j9eL6Z2HpfzfM5Pi48ygU="
+              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
             }
           },
-          "WebWebhookLambdaVersionfsXJTypJh9XgxQdLhn5YgorAk1mOTDRUxpmMCdGg": {
+          "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebWebhookLambdaFunction"
               },
-              "CodeSha256": "JMCrxgfOoYcHgvR0mb9Qy3j9eL6Z2HpfzfM5Pi48ygU="
+              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
+            }
+          },
+          "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "WorkerUploadGoogleDriveLambdaFunction"
+              },
+              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
+            }
+          },
+          "WorkerUploadGoogleDriveEventSourceMappingSQSThreadmecreatetranscript": {
+            "Type": "AWS::Lambda::EventSourceMapping",
+            "DependsOn": [
+              "IamRoleLambdaExecution"
+            ],
+            "Properties": {
+              "BatchSize": 10,
+              "EventSourceArn": "arn:aws:sqs:sa-east-1:196191449462:th-readme-create-transcript",
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "WorkerUploadGoogleDriveLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Enabled": true
             }
           },
           "HttpApi": {
@@ -571,7 +661,7 @@
           "WebNormalLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebNormalLambdaVersionZEZ7vzK7Hi8rdDrKnm4xzZDHXlCLbkx9WnMDMJxsuFg"
+              "Ref": "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ"
             },
             "Export": {
               "Name": "sls-x-th-prod-WebNormalLambdaFunctionQualifiedArn"
@@ -580,10 +670,19 @@
           "WebWebhookLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebWebhookLambdaVersionfsXJTypJh9XgxQdLhn5YgorAk1mOTDRUxpmMCdGg"
+              "Ref": "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ"
             },
             "Export": {
               "Name": "sls-x-th-prod-WebWebhookLambdaFunctionQualifiedArn"
+            }
+          },
+          "WorkerUploadGoogleDriveLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg"
+            },
+            "Export": {
+              "Name": "sls-x-th-prod-WorkerUploadGoogleDriveLambdaFunctionQualifiedArn"
             }
           },
           "HttpApiId": {
@@ -739,11 +838,11 @@
         "memory": 1024,
         "runtime": "provided.al2",
         "vpc": {},
-        "versionLogicalId": "WebNormalLambdaVersionZEZ7vzK7Hi8rdDrKnm4xzZDHXlCLbkx9WnMDMJxsuFg"
+        "versionLogicalId": "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ"
       },
       "webWebhook": {
         "handler": "public/index.php",
-        "timeout": 20,
+        "timeout": 40,
         "layers": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"WebWebhookLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
@@ -762,7 +861,25 @@
         "memory": 1024,
         "runtime": "provided.al2",
         "vpc": {},
-        "versionLogicalId": "WebWebhookLambdaVersionfsXJTypJh9XgxQdLhn5YgorAk1mOTDRUxpmMCdGg"
+        "versionLogicalId": "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ"
+      },
+      "workerUploadGoogleDrive": {
+        "handler": "worker.php",
+        "timeout": 60,
+        "layers": {
+          "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"WorkerUploadGoogleDriveLambdaFunction\"][\"Properties\"][\"Layers\"]"
+        },
+        "events": [
+          {
+            "sqs": "arn:aws:sqs:sa-east-1:196191449462:th-readme-create-transcript"
+          }
+        ],
+        "name": "x-th-prod-workerUploadGoogleDrive",
+        "package": {},
+        "memory": 1024,
+        "runtime": "provided.al2",
+        "vpc": {},
+        "versionLogicalId": "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg"
       }
     },
     "configValidationMode": "warn",
@@ -784,7 +901,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/x-th/prod/code-artifacts",
         "artifact": "/home/luan/www/tropical/mcp/.serverless/x-th.zip",
-        "artifactDirectoryName": "serverless/x-th/prod/1765378504864-2025-12-10T14:55:04.864Z"
+        "artifactDirectoryName": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -798,7 +915,7 @@
     "artifact": "/home/luan/www/tropical/mcp/.serverless/x-th.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/x-th/prod/1765378504864-2025-12-10T14:55:04.864Z",
+    "artifactDirectoryName": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z",
     "artifact": "x-th.zip"
   }
 }
