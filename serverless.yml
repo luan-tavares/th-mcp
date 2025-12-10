@@ -9,7 +9,7 @@ provider:
     httpApi: 
       cors: true
     environment:
-          APP_URL: https://caloi-th.tropicalhub.co
+          APP_URL: https://ops.tropicalsolutions.com
           LOG_CHANNEL: stderr
           SESSION_DRIVER: array
           CACHE_DRIVER: array
@@ -50,6 +50,19 @@ package:
         - "!.git/**"
 
 functions:
+
+    webNormal:
+      handler: public/index.php
+      timeout: 20
+      layers:
+          - ${bref:layer.php-84-fpm}
+      events:
+          - httpApi:
+              path: /{proxy+}
+              method: '*'
+          - httpApi:
+              path: /
+              method: '*'
 
     webWebhook:
       handler: public/index.php
