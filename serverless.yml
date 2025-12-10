@@ -65,7 +65,7 @@ functions:
 
     webWebhook:
       handler: public/index.php
-      timeout: 30
+      timeout: 20
       layers:
           - ${bref:layer.php-84-fpm}
       events:

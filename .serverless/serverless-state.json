@@ -256,7 +256,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
+                "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
@@ -304,13 +304,13 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
+                "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
               "FunctionName": "x-th-prod-webWebhook",
               "MemorySize": 1024,
-              "Timeout": 40,
+              "Timeout": 30,
               "Environment": {
                 "Variables": {
                   "APP_URL": "https://th-ops.tropicalsolutions.com",
@@ -352,7 +352,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z/x-th.zip"
+                "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
               },
               "Handler": "worker.php",
               "Runtime": "provided.al2",
@@ -393,34 +393,34 @@
               "WorkerUploadGoogleDriveLogGroup"
             ]
           },
-          "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ": {
+          "WebNormalLambdaVersionSnBMS2AZkEOO9Dmi4NOMZuQtp6hwSmvEG1ZzndjmkY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebNormalLambdaFunction"
               },
-              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
+              "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
             }
           },
-          "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ": {
+          "WebWebhookLambdaVersionD0gfmeONBetnXYj1ADwTpLtVqwnQGbmxCsgoe21vbo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebWebhookLambdaFunction"
               },
-              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
+              "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
             }
           },
-          "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg": {
+          "WorkerUploadGoogleDriveLambdaVersionYR2Dh8MTKwnawb235Whjm3lwO2KK2dwOKoltUzRQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WorkerUploadGoogleDriveLambdaFunction"
               },
-              "CodeSha256": "yuXvYQBHSp+Lm012nFIGkOUQ/Fn0zkZDkIWl9cI8pJ0="
+              "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
             }
           },
           "WorkerUploadGoogleDriveEventSourceMappingSQSThreadmecreatetranscript": {
@@ -661,7 +661,7 @@
           "WebNormalLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ"
+              "Ref": "WebNormalLambdaVersionSnBMS2AZkEOO9Dmi4NOMZuQtp6hwSmvEG1ZzndjmkY"
             },
             "Export": {
               "Name": "sls-x-th-prod-WebNormalLambdaFunctionQualifiedArn"
@@ -670,7 +670,7 @@
           "WebWebhookLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ"
+              "Ref": "WebWebhookLambdaVersionD0gfmeONBetnXYj1ADwTpLtVqwnQGbmxCsgoe21vbo"
             },
             "Export": {
               "Name": "sls-x-th-prod-WebWebhookLambdaFunctionQualifiedArn"
@@ -679,7 +679,7 @@
           "WorkerUploadGoogleDriveLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg"
+              "Ref": "WorkerUploadGoogleDriveLambdaVersionYR2Dh8MTKwnawb235Whjm3lwO2KK2dwOKoltUzRQ"
             },
             "Export": {
               "Name": "sls-x-th-prod-WorkerUploadGoogleDriveLambdaFunctionQualifiedArn"
@@ -838,11 +838,11 @@
         "memory": 1024,
         "runtime": "provided.al2",
         "vpc": {},
-        "versionLogicalId": "WebNormalLambdaVersionH17TM1HMZt7tNBzmcvAkFjkpuMQPcFEAbNUV5CvEQ"
+        "versionLogicalId": "WebNormalLambdaVersionSnBMS2AZkEOO9Dmi4NOMZuQtp6hwSmvEG1ZzndjmkY"
       },
       "webWebhook": {
         "handler": "public/index.php",
-        "timeout": 40,
+        "timeout": 30,
         "layers": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"WebWebhookLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
@@ -861,7 +861,7 @@
         "memory": 1024,
         "runtime": "provided.al2",
         "vpc": {},
-        "versionLogicalId": "WebWebhookLambdaVersionEJKGlfb7nOm4YoKiDtRYAUPAnFRNrIvAxf5xMAsjoGQ"
+        "versionLogicalId": "WebWebhookLambdaVersionD0gfmeONBetnXYj1ADwTpLtVqwnQGbmxCsgoe21vbo"
       },
       "workerUploadGoogleDrive": {
         "handler": "worker.php",
@@ -879,7 +879,7 @@
         "memory": 1024,
         "runtime": "provided.al2",
         "vpc": {},
-        "versionLogicalId": "WorkerUploadGoogleDriveLambdaVersionXbcQ9WerfRrX4vXHr1tv1SxaZzqCDwJi2NEqVnkRhg"
+        "versionLogicalId": "WorkerUploadGoogleDriveLambdaVersionYR2Dh8MTKwnawb235Whjm3lwO2KK2dwOKoltUzRQ"
       }
     },
     "configValidationMode": "warn",
@@ -901,7 +901,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/x-th/prod/code-artifacts",
         "artifact": "/home/luan/www/tropical/mcp/.serverless/x-th.zip",
-        "artifactDirectoryName": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z"
+        "artifactDirectoryName": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -915,7 +915,7 @@
     "artifact": "/home/luan/www/tropical/mcp/.serverless/x-th.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/x-th/prod/1765383257221-2025-12-10T16:14:17.221Z",
+    "artifactDirectoryName": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z",
     "artifact": "x-th.zip"
   }
 }
