@@ -9,7 +9,7 @@ provider:
     httpApi: 
       cors: true
     environment:
-          APP_URL: https://ops.tropicalsolutions.com
+          APP_URL: https://th-ops.tropicalsolutions.com
           LOG_CHANNEL: stderr
           SESSION_DRIVER: array
           CACHE_DRIVER: array
@@ -17,7 +17,7 @@ provider:
           APP_DEBUG: true
           QUEUE_CONNECTION: sqs
           ASSET_URL: 
-          DB_HOST: caloi-db.tropicalhub
+          DB_HOST: 
           DB_PORT: 3306
           AWS_ACCESS_KEY_ID:
           AWS_SECRET_ACCESS_KEY:
@@ -65,13 +65,22 @@ functions:
 
     webWebhook:
       handler: public/index.php
-      timeout: 20
+      timeout: 40
       layers:
           - ${bref:layer.php-84-fpm}
       events:
           - httpApi:
               path: /webhook/{proxy+}
               method: 'POST'
+
+
+    workerUploadGoogleDrive:
+      handler: worker.php
+      timeout: 60
+      layers:
+        - ${bref:layer.php-84}
+      events:
+        - sqs: arn:aws:sqs:sa-east-1:196191449462:th-readme-create-transcript
 
 
 plugins:
