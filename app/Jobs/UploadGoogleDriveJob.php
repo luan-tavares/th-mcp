@@ -3,18 +3,21 @@
 namespace App\Jobs;
 
 use App\Support\GoogleDriveService;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UploadGoogleDriveJob implements ShouldQueue
 {
-    use Queueable;
+    use InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private GoogleDriveService $googleDriveService) {}
+    public function __construct(private string $raw) {}
 
 
     public function handle(): void
     {
-        $this->googleDriveService->createTranscriptFile();
+        $googleDriveService = new GoogleDriveService($this->raw);
+        $googleDriveService->createTranscriptFile();
     }
 }

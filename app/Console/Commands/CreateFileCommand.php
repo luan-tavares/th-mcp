@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\UploadGoogleDriveJob;
 use App\Support\GoogleDriveService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -30,10 +31,6 @@ class CreateFileCommand extends Command
         $content = Storage::get('teste.json');
 
 
-        $a = new GoogleDriveService($content);
-
-        $t = $a->createTranscriptFile();
-
-        dump($a);
+        UploadGoogleDriveJob::dispatch($content);
     }
 }

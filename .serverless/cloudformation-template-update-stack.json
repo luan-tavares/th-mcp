@@ -206,7 +206,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
+          "S3Key": "serverless/x-th/prod/1765383510424-2025-12-10T16:18:30.424Z/x-th.zip"
         },
         "Handler": "public/index.php",
         "Runtime": "provided.al2",
@@ -256,13 +256,13 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
+          "S3Key": "serverless/x-th/prod/1765383510424-2025-12-10T16:18:30.424Z/x-th.zip"
         },
         "Handler": "public/index.php",
         "Runtime": "provided.al2",
         "FunctionName": "x-th-prod-webWebhook",
         "MemorySize": 1024,
-        "Timeout": 30,
+        "Timeout": 20,
         "Environment": {
           "Variables": {
             "APP_URL": "https://th-ops.tropicalsolutions.com",
@@ -306,7 +306,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/x-th/prod/1765383435892-2025-12-10T16:17:15.892Z/x-th.zip"
+          "S3Key": "serverless/x-th/prod/1765383510424-2025-12-10T16:18:30.424Z/x-th.zip"
         },
         "Handler": "worker.php",
         "Runtime": "provided.al2",
@@ -349,34 +349,34 @@
         "WorkerUploadGoogleDriveLogGroup"
       ]
     },
-    "WebNormalLambdaVersionSnBMS2AZkEOO9Dmi4NOMZuQtp6hwSmvEG1ZzndjmkY": {
+    "WebNormalLambdaVersionby48duMi4lZpmIQ9i1iHjCxW4MiPydGW4f1i48VQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "WebNormalLambdaFunction"
         },
-        "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
+        "CodeSha256": "SnOA70GJF5uFrogJ3bL+pY27yp+xDObg7+4BFXKVrZM="
       }
     },
-    "WebWebhookLambdaVersionD0gfmeONBetnXYj1ADwTpLtVqwnQGbmxCsgoe21vbo": {
+    "WebWebhookLambdaVersionGum1JWqp4fsxGCCT2YTsbHEeaDQhFoqh6Sa1L7lpDc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "WebWebhookLambdaFunction"
         },
-        "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
+        "CodeSha256": "SnOA70GJF5uFrogJ3bL+pY27yp+xDObg7+4BFXKVrZM="
       }
     },
-    "WorkerUploadGoogleDriveLambdaVersionYR2Dh8MTKwnawb235Whjm3lwO2KK2dwOKoltUzRQ": {
+    "WorkerUploadGoogleDriveLambdaVersionhYItVKrpKYh3mB9p6XDXuG1IRQ4I2qpz0db9VaRvtHE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "WorkerUploadGoogleDriveLambdaFunction"
         },
-        "CodeSha256": "reA0pWuJ6IVZPEYW7QS/RVeNMhvVHBVuCCUdkNrAW8Q="
+        "CodeSha256": "SnOA70GJF5uFrogJ3bL+pY27yp+xDObg7+4BFXKVrZM="
       }
     },
     "WorkerUploadGoogleDriveEventSourceMappingSQSThreadmecreatetranscript": {
@@ -623,7 +623,7 @@
     "WebNormalLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "WebNormalLambdaVersionSnBMS2AZkEOO9Dmi4NOMZuQtp6hwSmvEG1ZzndjmkY"
+        "Ref": "WebNormalLambdaVersionby48duMi4lZpmIQ9i1iHjCxW4MiPydGW4f1i48VQ"
       },
       "Export": {
         "Name": "sls-x-th-prod-WebNormalLambdaFunctionQualifiedArn"
@@ -632,7 +632,7 @@
     "WebWebhookLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "WebWebhookLambdaVersionD0gfmeONBetnXYj1ADwTpLtVqwnQGbmxCsgoe21vbo"
+        "Ref": "WebWebhookLambdaVersionGum1JWqp4fsxGCCT2YTsbHEeaDQhFoqh6Sa1L7lpDc"
       },
       "Export": {
         "Name": "sls-x-th-prod-WebWebhookLambdaFunctionQualifiedArn"
@@ -641,7 +641,7 @@
     "WorkerUploadGoogleDriveLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "WorkerUploadGoogleDriveLambdaVersionYR2Dh8MTKwnawb235Whjm3lwO2KK2dwOKoltUzRQ"
+        "Ref": "WorkerUploadGoogleDriveLambdaVersionhYItVKrpKYh3mB9p6XDXuG1IRQ4I2qpz0db9VaRvtHE"
       },
       "Export": {
         "Name": "sls-x-th-prod-WorkerUploadGoogleDriveLambdaFunctionQualifiedArn"

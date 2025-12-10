@@ -12,11 +12,11 @@ class ReadWebhookController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $googleSriveService = new GoogleDriveService($request->getContent());
+        $content = $request->getContent();
 
-        Log::info($request->getContent());
+        Log::info($content);
 
-        UploadGoogleDriveJob::dispatch($googleSriveService)->onQueue('th-readme-create-transcript');
+        UploadGoogleDriveJob::dispatch($content)->onQueue('th-readme-create-transcript');
 
         return response()->json(["message" => "ok"]);
     }
