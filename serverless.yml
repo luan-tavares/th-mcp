@@ -21,7 +21,6 @@ provider:
           DB_PORT: 3306
           AWS_ACCESS_KEY_ID:
           AWS_SECRET_ACCESS_KEY:
-          BREF_PHP_EXTRA_EXTENSIONS: gd
     iam:
       role:
         statements:
@@ -77,5 +76,4 @@ functions:
 
 plugins:
   - ./vendor/bref/bref
-  - ./vendor/bref/extra-php-extensions
 
