@@ -103,11 +103,14 @@ class GoogleDriveService
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type'  => 'application/json',
             ],
+            'query' => [
+                'supportsAllDrives' => 'true',
+            ],
             'json' => [
                 "name" => $fileName,
                 "mimeType" => "application/json",
                 "parents" => [
-                    "1ofeqYiODQwmFtTdN6Ibvkgtjriti6fMD",
+                    "0ANDGgCcn-aUzUk9PVA",
                 ],
             ],
         ]);
@@ -121,20 +124,21 @@ class GoogleDriveService
             throw new Exception('Não foi possível obter o ID do arquivo criado no Google Drive.');
         }
 
-        // 2) Atualiza o conteúdo do arquivo com o RAW do webhook
-        $uploadUrl = sprintf(
-            'https://www.googleapis.com/upload/drive/v3/files/%s?uploadType=media',
-            $this->fileId
+        $this->http->patch(
+            'https://www.googleapis.com/upload/drive/v3/files/' . $this->fileId,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    // pode trocar pra 'text/plain' se quiser exatamente como no curl original
+                    'Content-Type'  => 'application/json',
+                ],
+                'query' => [
+                    'uploadType'        => 'media',
+                    'supportsAllDrives' => 'true',
+                ],
+                'body' => $this->raw,
+            ]
         );
-
-        $this->http->patch($uploadUrl, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $token,
-                // pode trocar para 'text/plain' se quiser exatamente como no curl original
-                'Content-Type'  => 'application/json',
-            ],
-            'body' => $this->raw,
-        ]);
 
         return $this->fileId;
     }

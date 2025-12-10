@@ -30,7 +30,7 @@ class CreateFileCommand extends Command
     {
         $content = Storage::get('teste.json');
 
-
-        UploadGoogleDriveJob::dispatch($content);
+        $googleDriveService = new GoogleDriveService($content);
+        $googleDriveService->createTranscriptFile();
     }
 }
