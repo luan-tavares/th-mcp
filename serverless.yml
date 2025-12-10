@@ -1,0 +1,68 @@
+service: x-th
+
+provider:
+    name: aws
+    region: sa-east-1
+    stage: prod
+    runtime: provided.al2
+    profile: x-deploy
+    httpApi: 
+      cors: true
+    environment:
+          APP_URL: https://caloi-th.tropicalhub.co
+          LOG_CHANNEL: stderr
+          SESSION_DRIVER: array
+          CACHE_DRIVER: array
+          AWS_LAMBDA: true
+          APP_DEBUG: true
+          QUEUE_CONNECTION: sqs
+          ASSET_URL: 
+          DB_HOST: caloi-db.tropicalhub
+          DB_PORT: 3306
+          AWS_ACCESS_KEY_ID:
+          AWS_SECRET_ACCESS_KEY:
+          BREF_PHP_EXTRA_EXTENSIONS: gd
+    iam:
+      role:
+        statements:
+          - Effect: 'Allow'
+            Action:
+              - 'sqs:*'
+            Resource:
+              - 'arn:aws:sqs:sa-east-1:196191449462:th-readme-create-transcript'
+
+    vpc:
+      securityGroupIds:
+        - sg-0667c453058600316 #caloi-lambda
+      subnetIds:
+        - subnet-08fe30dd3e3077e04 #caloi-private-a
+        - subnet-0a1e78df690643045 #caloi-private-b
+        - subnet-08a4156f5ae8ba1d3 #caloi-private-c
+
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!public/storage'
+        - '!resources/assets/**'
+        - '!storage/**'
+        - '!tests/**'
+        - '!bootstrap/cache/config.php'
+        - "!.git/**"
+
+functions:
+
+    webWebhook:
+      handler: public/index.php
+      timeout: 20
+      layers:
+          - ${bref:layer.php-84-fpm}
+      events:
+          - httpApi:
+              path: /webhook/{proxy+}
+              method: 'POST'
+
+
+plugins:
+  - ./vendor/bref/bref
+  - ./vendor/bref/extra-php-extensions
+
